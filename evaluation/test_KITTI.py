@@ -175,11 +175,11 @@ if __name__ == '__main__':
     # module_spec = importlib.util.spec_from_file_location(module_name, module_file_path)
     # module = importlib.util.module_from_spec(module_spec)
     # module_spec.loader.exec_module(module)
-    # PointSM = module.PointSM
+    # PointDSC = module.PointDSC
     
-    # load from models/PointSM.py
-    from models.PointSM import PointSM
-    model = PointSM(
+    # load from models/PointDSC.py
+    from models.PointDSC import PointDSC
+    model = PointDSC(
             in_dim=config.in_dim,
             num_layers=config.num_layers,
             num_channels=config.num_channels,

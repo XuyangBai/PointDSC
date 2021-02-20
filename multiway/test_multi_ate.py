@@ -327,9 +327,9 @@ if __name__ == '__main__':
     config.root = '/data/Augmented_ICL-NUIM'
     config.descriptor = 'fpfh'
 
-    from models.PointSM import PointSM
+    from models.PointDSC import PointDSC
 
-    model = PointSM(
+    model = PointDSC(
         in_dim=config.in_dim,
         num_layers=config.num_layers,
         num_channels=config.num_channels,

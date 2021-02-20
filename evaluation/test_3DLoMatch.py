@@ -122,51 +122,6 @@ def eval_3DMatch_scene(model, scene_ind, dloader, config, args):
             class_stats = class_loss(pred_labels, gt_labels)
             loss, recall, Re, Te, rmse = evaluate_metric(pred_trans, gt_trans, src_keypts, tgt_keypts, pred_labels)
 
-            if recall == 0:
-                root = dloader.dataset.root
-                scene = dloader.dataset.infos['src'][i].split('/')[1]
-                src_id = dloader.dataset.infos['src'][i].split('/')[-1].split('_')[-1].replace('.pth', '')
-                tgt_id = dloader.dataset.infos['tgt'][i].split('/')[-1].split('_')[-1].replace('.pth', '')
-                overlap = dloader.dataset.infos['overlap'][i]
-                print(f"GT Overlap={overlap*100:.2f}%, {scene} {src_id} and {tgt_id}")
-                print(f"Pair {i}, input ratio={stats[i, 4]*100:.2f}% num={stats[i, 3]}, output precision={stats[i, 6]*100:.2f}% recall={stats[i, 7]*100:.2f}%")
-
-                src_pcd = o3d.io.read_point_cloud(f"{root}/fragments/{scene}/cloud_bin_{src_id}.ply")
-                tgt_pcd = o3d.io.read_point_cloud(f"{root}/fragments/{scene}/cloud_bin_{tgt_id}.ply")
-                src_pcd = src_pcd.voxel_down_sample(0.025)
-                tgt_pcd = tgt_pcd.voxel_down_sample(0.025)
-                # # src_pcd.transform(gt_trans[0].detach().cpu().numpy())
-                src_pts = np.array(src_pcd.points)
-                gt_trans = gt_trans.detach().cpu().numpy()[0]
-                warp_src_keypts = src_pts @ gt_trans[:3, :3] + gt_trans[:3, -1]
-                src_pcd = make_point_cloud(warp_src_keypts)
-                estimate_normal(src_pcd)
-                estimate_normal(tgt_pcd)
-                # # warp_src_keypts = src_keypts[0] @ gt_trans[0, :3, :3] + gt_trans[0, :3, -1]
-                # # src_pcd = make_point_cloud(warp_src_keypts.detach().cpu().numpy())
-                # # tgt_pcd = make_point_cloud(tgt_keypts[0].detach().cpu().numpy())
-                src_pcd.paint_uniform_color([1, 0.706, 0])
-                tgt_pcd.paint_uniform_color([0, 0.651, 0.929])
-                o3d.visualization.draw_geometries([src_pcd, tgt_pcd])
-                continue
-
-                from demo.demo import vis_pair
-                src_data = np.load(f"{root}/fragments/{scene}/cloud_bin_{src_id}_fcgf.npz")
-                tgt_data = np.load(f"{root}/fragments/{scene}/cloud_bin_{tgt_id}_fcgf.npz")
-                # src_keypts = src_data['xyz']
-                # tgt_keypts = tgt_data['xyz']
-                src_features = src_data['feature']
-                tgt_features = tgt_data['feature']
-                distance = np.sqrt(2 - 2 * (src_features @ tgt_features.T) + 1e-6)
-                source_idx = np.argmin(distance, axis=1)
-                corr = np.concatenate([np.arange(source_idx.shape[0])[:, None], source_idx[:, None]], axis=-1)
-                gt_labels = gt_labels[0].detach().cpu().numpy()
-                pred_labels = pred_labels[0].detach().cpu().numpy()
-                src_keypts = src_keypts[0].detach().cpu().numpy()
-                tgt_keypts = tgt_keypts[0].detach().cpu().numpy()
-                vis_pair(src_pcd, tgt_pcd, src_keypts, tgt_keypts, corr, gt_labels, pred_labels, pred_labels)
-
-
             #################################
             # record the evaluation results.
             #################################
@@ -307,10 +262,10 @@ if __name__ == '__main__':
                         format="")
     logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))   
 
-    ## load the model from models/PointSM.py
-    from models.PointSM import PointSM
+    ## load the model from models/PointDSC.py
+    from models.PointDSC import PointDSC
 
-    model = PointSM(
+    model = PointDSC(
         in_dim=config.in_dim,
         num_layers=config.num_layers,
         num_channels=config.num_channels,

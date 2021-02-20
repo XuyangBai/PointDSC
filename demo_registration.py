@@ -2,7 +2,7 @@ import json
 import copy
 import argparse
 from easydict import EasyDict as edict
-from models.PointSM import PointSM
+from models.PointDSC import PointDSC
 from utils.pointcloud import estimate_normal
 import torch
 import numpy as np
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     else:
         device = torch.device('cpu')
 
-    model = PointSM(
+    model = PointDSC(
         in_dim=config.in_dim,
         num_layers=config.num_layers,
         num_channels=config.num_channels,

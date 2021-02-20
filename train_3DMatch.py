@@ -8,7 +8,7 @@ from libs.loss import TransformationLoss, ClassificationLoss, SpectralMatchingLo
 from datasets.ThreeDMatch import ThreeDMatchTrainVal
 from datasets.dataloader import get_dataloader
 from libs.trainer import Trainer
-from models.PointSM import PointSM
+from models.PointDSC import PointDSC
 from torch import optim
 
 
@@ -23,7 +23,7 @@ if __name__ == '__main__':
     os.makedirs(config.save_dir, exist_ok=True)
     shutil.copy2(os.path.join('.', 'train_3DMatch.py'), os.path.join(config.snapshot_dir, 'train.py'))
     shutil.copy2(os.path.join('.', 'libs/trainer.py'), os.path.join(config.snapshot_dir, 'trainer.py'))
-    shutil.copy2(os.path.join('.', 'models/PointSM.py'), os.path.join(config.snapshot_dir, 'model.py'))  # for the model setting.
+    shutil.copy2(os.path.join('.', 'models/PointDSC.py'), os.path.join(config.snapshot_dir, 'model.py'))  # for the model setting.
     shutil.copy2(os.path.join('.', 'libs/loss.py'), os.path.join(config.snapshot_dir, 'loss.py'))
     shutil.copy2(os.path.join('.', 'datasets/ThreeDMatch.py'), os.path.join(config.snapshot_dir, 'dataset.py'))
     json.dump(
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     )
 
     # create model 
-    config.model = PointSM(
+    config.model = PointDSC(
         in_dim=config.in_dim,
         num_layers=config.num_layers, 
         num_channels=config.num_channels,

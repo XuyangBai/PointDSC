@@ -77,7 +77,7 @@ class NonLocalNet(nn.Module):
         return feat
 
 
-class PointSM(nn.Module):
+class PointDSC(nn.Module):
     def __init__(self,
                  in_dim=6,
                  num_layers=6,
@@ -89,7 +89,7 @@ class PointSM(nn.Module):
                  k=40,
                  nms_radius=0.10,
                  ):
-        super(PointSM, self).__init__()
+        super(PointDSC, self).__init__()
         self.num_iterations = num_iterations # maximum iteration of power iteration algorithm
         self.ratio = ratio # the maximum ratio of seeds.
         self.num_channels = num_channels
