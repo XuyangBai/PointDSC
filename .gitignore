@@ -1,0 +1,7 @@
+data/*
+snapshot/*
+tensorboard/*
+__pycache__/
+data/*
+.idea/
+*.json
