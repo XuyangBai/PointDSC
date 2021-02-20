@@ -30,15 +30,15 @@ If you are using conda, you may configure PointDSC as:
     conda env create -f environment.yml
     conda activate pointdsc
 
-If you also want to use FCGF as the 3d local descriptor, please install [MinkowskiEngine](https://github.com/NVIDIA/MinkowskiEngine) and download the FCGF model (pretrained on 3DMatch) from [here](http://node2.chrischoy.org/data/projects/DGR/ResUNetBN2C-feat32-3dmatch-v0.05.pth). 
+If you also want to use FCGF as the 3d local descriptor, please install [MinkowskiEngine v0.5.0](https://github.com/NVIDIA/MinkowskiEngine) and download the FCGF model (pretrained on 3DMatch) from [here](http://node2.chrischoy.org/data/projects/DGR/ResUNetBN2C-feat32-3dmatch-v0.05.pth). 
 
 ## Demo
 
 We provide a small demo to extract dense FPFH descriptors for two point cloud, and register them using PointDSC. The ply files are saved in the `demo_data` folder, which can be replaced by your own data.  Please use model pretrained on 3DMatch for indoor RGB-D scans and model pretrained on KITTI for outdoor LiDAR scans. To try the demo, please run
 ```bash
-python demo_registration.py --chosen_snapshot [PointDSC_3DMatch_release/PointDSC_KITTI_release]
+python demo_registration.py --chosen_snapshot [PointDSC_3DMatch_release/PointDSC_KITTI_release] --descriptor [fcgf/fpfh]
 ``` 
-For challenging cases, we recommend to use learned feature descriptors like [D3Feat](https://github.com/XuyangBai/D3Feat) or [FCGF](https://github.com/chrischoy/FCGF). 
+For challenging cases, we recommend to use learned feature descriptors like [FCGF](https://github.com/chrischoy/FCGF) or [D3Feat](https://github.com/XuyangBai/D3Feat). 
 
 ## Dataset Preprocessing
 
