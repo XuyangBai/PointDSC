@@ -1,6 +1,6 @@
 # PointDSC repository
 
-PyTorch implementation of PointDSC for CVPR'2021 paper ["PointDSC: Robust Point Cloud Registration using Deep Spatial Consistency"](https://arxiv.org/abs/2103.00546), by Xuyang Bai, Zixin Luo, Lei Zhou, Hongkai Chen, Lei Li, Zeyu Hu, Hongbo Fu and Chiew-Lan Tai.
+PyTorch implementation of PointDSC for CVPR'2021 paper ["PointDSC: Robust Point Cloud Registration using Deep Spatial Consistency"](https://arxiv.org/abs/2103.05465), by Xuyang Bai, Zixin Luo, Lei Zhou, Hongkai Chen, Lei Li, Zeyu Hu, Hongbo Fu and Chiew-Lan Tai.
 
 This paper focus on outlier rejection for 3D point clouds registration. If you find this project useful, please cite:
 
